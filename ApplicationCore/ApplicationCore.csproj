@@ -42,6 +42,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\IServiceTelefono.cs" />
+    <Compile Include="Services\IServiceUsuario.cs" />
+    <Compile Include="Services\ServiceTelefono.cs" />
+    <Compile Include="Services\ServiceUsuario.cs" />
+    <Compile Include="Utils\Cryptography.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Infraestructure\Infraestructure.csproj">
@@ -49,8 +54,6 @@
       <Name>Infraestructure</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
