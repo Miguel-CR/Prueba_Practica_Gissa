@@ -31,7 +31,7 @@ namespace Infraestructure.Repository
                     {
 
                     }
-                    //Select  *  from Producto where ID==id es un innerjoin
+
                 }
                 return u;
 
@@ -77,7 +77,7 @@ namespace Infraestructure.Repository
                 using (MyContext ctx = new MyContext())
                 {
                     ctx.Configuration.LazyLoadingEnabled = false;
-                    u = ctx.test_UserReadById1(cedula).FirstOrDefault();
+                    u = ctx.test_UserReadById(cedula).FirstOrDefault();
                 }
                 return u;
 
@@ -102,7 +102,7 @@ namespace Infraestructure.Repository
                 using (MyContext ctx = new MyContext())
                 {
                     ctx.Configuration.LazyLoadingEnabled = false;
-                    listaUsuarios = ctx.test_UserRead1().ToList<test_Usuario>();
+                    listaUsuarios = ctx.test_UserRead().ToList<test_Usuario>();
                 }
                 return listaUsuarios;
 

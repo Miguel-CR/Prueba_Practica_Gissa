@@ -11,9 +11,9 @@ namespace Infraestructure.Models
 {
     using System;
     
-    public partial class test_PhoneRead_Result
+    public partial class test_Habilidad_Read_Result
     {
-        public string UsuarioCedula { get; set; }
-        public string Telefono { get; set; }
+        public int Id { get; set; }
+        public string Nombre { get; set; }
     }
 }

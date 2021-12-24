@@ -4,8 +4,8 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="RegistroModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="test_Habilidades">
+    <Schema Namespace="RegistroModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="test_Habilidad">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -53,10 +53,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_test_Usuario_Cedula_test_Habilidades">
-          <End Role="test_Habilidades" Type="Self.test_Habilidades" Multiplicity="1" />
+          <End Role="test_Habilidad" Type="Self.test_Habilidad" Multiplicity="1" />
           <End Role="test_Usuario_Habilidad" Type="Self.test_Usuario_Habilidad" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="test_Habilidades">
+            <Principal Role="test_Habilidad">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="test_Usuario_Habilidad">
@@ -76,8 +76,23 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="test_PhoneRead" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+        <Function Name="test_Habilidad_Read" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="test_Habilidad_ReadById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="test_PhoneCreate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UsuarioCedula" Type="nvarchar" Mode="In" />
+          <Parameter Name="Telefono" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="test_PhoneReadByTelefono" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Telefono" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="test_PhoneReadByUserId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UsuarioCedula" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="test_PhoneUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UsuarioCedula" Type="nvarchar" Mode="In" />
+          <Parameter Name="Telefono" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="test_UserCreate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Cedula" Type="nvarchar" Mode="In" />
@@ -87,8 +102,6 @@
           <Parameter Name="Correo" Type="nvarchar" Mode="In" />
           <Parameter Name="TipoDeUsuario" Type="int" Mode="In" />
           <Parameter Name="TipoDeIdentificacion" Type="int" Mode="In" />
-          <Parameter Name="Telefono" Type="nvarchar" Mode="In" />
-          <Parameter Name="IdHabilidad" Type="int" Mode="In" />
         </Function>
         <Function Name="test_UserDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Cedula" Type="nvarchar" Mode="In" />
@@ -106,11 +119,19 @@
           <Parameter Name="TipoDeUsuario" Type="int" Mode="In" />
           <Parameter Name="TipoDeIdentificacion" Type="int" Mode="In" />
         </Function>
+        <Function Name="test_Usuario_Habilidad_Create" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UsuarioCedula" Type="nvarchar" Mode="In" />
+          <Parameter Name="IdHabilidad" Type="int" Mode="In" />
+        </Function>
         <Function Name="test_Usuario_Habilidad_ReadByUserId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UsuarioCedula" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="test_Usuario_Habilidad_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UsuarioCedula" Type="nvarchar" Mode="In" />
+          <Parameter Name="IdHabilidad" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="RegistroModelStoreContainer">
-          <EntitySet Name="test_Habilidades" EntityType="Self.test_Habilidades" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="test_Habilidad" EntityType="Self.test_Habilidad" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="test_Telefono" EntityType="Self.test_Telefono" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="test_Usuario" EntityType="Self.test_Usuario" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="test_Usuario_Habilidad" EntityType="Self.test_Usuario_Habilidad" Schema="dbo" store:Type="Tables" />
@@ -119,7 +140,7 @@
             <End Role="test_Telefono" EntitySet="test_Telefono" />
           </AssociationSet>
           <AssociationSet Name="FK_test_Usuario_Cedula_test_Habilidades" Association="Self.FK_test_Usuario_Cedula_test_Habilidades">
-            <End Role="test_Habilidades" EntitySet="test_Habilidades" />
+            <End Role="test_Habilidad" EntitySet="test_Habilidad" />
             <End Role="test_Usuario_Habilidad" EntitySet="test_Usuario_Habilidad" />
           </AssociationSet>
           <AssociationSet Name="FK_test_Usuario_Cedula_test_Usuario" Association="Self.FK_test_Usuario_Cedula_test_Usuario">
@@ -127,18 +148,17 @@
             <End Role="test_Usuario_Habilidad" EntitySet="test_Usuario_Habilidad" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="RegistroModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="test_Habilidades">
+        <EntityType Name="test_Habilidad">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nombre" Type="String" MaxLength="35" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="test_Usuario" Relationship="Self.test_Usuario_Habilidad" FromRole="test_Habilidades" ToRole="test_Usuario" />
+          <NavigationProperty Name="test_Usuario" Relationship="Self.test_Usuario_Habilidad" FromRole="test_Habilidad" ToRole="test_Usuario" />
         </EntityType>
         <EntityType Name="test_Telefono">
           <Key>
@@ -161,7 +181,7 @@
           <Property Name="TipoDeUsuario" Type="Int32" Nullable="false" />
           <Property Name="TipoDeIndentificacion" Type="Int32" Nullable="false" />
           <NavigationProperty Name="test_Telefono" Relationship="Self.FK_test_Telefono_test_Usuario" FromRole="test_Usuario" ToRole="test_Telefono" />
-          <NavigationProperty Name="test_Habilidades" Relationship="Self.test_Usuario_Habilidad" FromRole="test_Usuario" ToRole="test_Habilidades" />
+          <NavigationProperty Name="test_Habilidad" Relationship="Self.test_Usuario_Habilidad" FromRole="test_Usuario" ToRole="test_Habilidad" />
         </EntityType>
         <Association Name="FK_test_Telefono_test_Usuario">
           <End Role="test_Usuario" Type="Self.test_Usuario" Multiplicity="1" />
@@ -176,11 +196,11 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="test_Usuario_Habilidad">
-          <End Role="test_Habilidades" Type="Self.test_Habilidades" Multiplicity="*" />
+          <End Role="test_Habilidad" Type="Self.test_Habilidad" Multiplicity="*" />
           <End Role="test_Usuario" Type="Self.test_Usuario" Multiplicity="*" />
         </Association>
         <EntityContainer Name="RegistroEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="test_Habilidades" EntityType="Self.test_Habilidades" />
+          <EntitySet Name="test_Habilidad" EntityType="Self.test_Habilidad" />
           <EntitySet Name="test_Telefono" EntityType="Self.test_Telefono" />
           <EntitySet Name="test_Usuario" EntityType="Self.test_Usuario" />
           <AssociationSet Name="FK_test_Telefono_test_Usuario" Association="Self.FK_test_Telefono_test_Usuario">
@@ -188,11 +208,23 @@
             <End Role="test_Telefono" EntitySet="test_Telefono" />
           </AssociationSet>
           <AssociationSet Name="test_Usuario_Habilidad" Association="Self.test_Usuario_Habilidad">
-            <End Role="test_Habilidades" EntitySet="test_Habilidades" />
+            <End Role="test_Habilidad" EntitySet="test_Habilidad" />
             <End Role="test_Usuario" EntitySet="test_Usuario" />
           </AssociationSet>
-          <FunctionImport Name="test_PhoneRead" EntitySet="test_Telefono" ReturnType="Collection(RegistroModel.test_Telefono)">
+          <FunctionImport Name="test_Habilidad_Read" EntitySet="test_Habilidad" ReturnType="Collection(RegistroModel.test_Habilidad)" />
+          <FunctionImport Name="test_Habilidad_ReadById" EntitySet="test_Habilidad" ReturnType="Collection(RegistroModel.test_Habilidad)">
+          <Parameter Name="Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="test_PhoneCreate" ReturnType="Collection(Int32)">
             <Parameter Name="UsuarioCedula" Mode="In" Type="String" />
+            <Parameter Name="Telefono" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="test_PhoneReadByUserId" EntitySet="test_Telefono" ReturnType="Collection(RegistroModel.test_Telefono)">
+          <Parameter Name="UsuarioCedula" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="test_PhoneUpdate" ReturnType="Collection(Int32)">
+            <Parameter Name="UsuarioCedula" Mode="In" Type="String" />
+            <Parameter Name="Telefono" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="test_UserCreate" ReturnType="Collection(Int32)">
             <Parameter Name="Cedula" Mode="In" Type="String" />
@@ -202,15 +234,13 @@
             <Parameter Name="Correo" Mode="In" Type="String" />
             <Parameter Name="TipoDeUsuario" Mode="In" Type="Int32" />
             <Parameter Name="TipoDeIdentificacion" Mode="In" Type="Int32" />
-            <Parameter Name="Telefono" Mode="In" Type="String" />
-            <Parameter Name="IdHabilidad" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="test_UserDelete" ReturnType="Collection(Int32)">
-            <Parameter Name="Cedula" Mode="In" Type="String" />
+          <Parameter Name="Cedula" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="test_UserRead" ReturnType="Collection(RegistroModel.test_UserRead_Result)" />
-          <FunctionImport Name="test_UserReadById" ReturnType="Collection(RegistroModel.test_UserReadById_Result)">
-            <Parameter Name="Cedula" Mode="In" Type="String" />
+          <FunctionImport Name="test_UserRead" EntitySet="test_Usuario" ReturnType="Collection(RegistroModel.test_Usuario)" />
+          <FunctionImport Name="test_UserReadById" EntitySet="test_Usuario" ReturnType="Collection(RegistroModel.test_Usuario)">
+          <Parameter Name="Cedula" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="test_UserUpdate" ReturnType="Collection(Int32)">
             <Parameter Name="Cedula" Mode="In" Type="String" />
@@ -221,15 +251,27 @@
             <Parameter Name="TipoDeUsuario" Mode="In" Type="Int32" />
             <Parameter Name="TipoDeIdentificacion" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="test_Usuario_Habilidad_ReadByUserId" ReturnType="Collection(RegistroModel.test_Usuario_Habilidad_ReadByUserId_Result)">
+          <FunctionImport Name="test_Usuario_Habilidad_Create" ReturnType="Collection(Int32)">
             <Parameter Name="UsuarioCedula" Mode="In" Type="String" />
+            <Parameter Name="IdHabilidad" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="test_UserRead1" EntitySet="test_Usuario" ReturnType="Collection(RegistroModel.test_Usuario)" />
-          <FunctionImport Name="test_UserReadById1" EntitySet="test_Usuario" ReturnType="Collection(RegistroModel.test_Usuario)">
-            <Parameter Name="Cedula" Mode="In" Type="String" />
+          <FunctionImport Name="test_Usuario_Habilidad_ReadByUserId" ReturnType="Collection(RegistroModel.test_Usuario_Habilidad_ReadByUserId_Result)">
+          <Parameter Name="UsuarioCedula" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="test_Usuario_Habilidad_Update" EntitySet="test_Habilidad" ReturnType="Collection(RegistroModel.test_Habilidad)">
+            <Parameter Name="UsuarioCedula" Mode="In" Type="String" />
+            <Parameter Name="IdHabilidad" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="test_PhoneReadByTelefono" EntitySet="test_Telefono" ReturnType="Collection(RegistroModel.test_Telefono)">
+            <Parameter Name="Telefono" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
-        <ComplexType Name="test_PhoneRead_Result">
+        <ComplexType Name="test_Habilidad_Read_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="false" MaxLength="35" />
+        </ComplexType>
+        <ComplexType Name="test_PhoneReadByUserId_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
           <Property Type="String" Name="UsuarioCedula" Nullable="false" MaxLength="20" />
           <Property Type="String" Name="Telefono" Nullable="false" MaxLength="8" />
         </ComplexType>
@@ -255,15 +297,19 @@
           <Property Type="String" Name="UsuarioCedula" Nullable="false" MaxLength="20" />
           <Property Type="Int32" Name="IdHabilidad" Nullable="false" />
         </ComplexType>
+        <ComplexType Name="test_PhoneReadByTelefono_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="UsuarioCedula" Nullable="false" MaxLength="20" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="RegistroModelStoreContainer" CdmEntityContainer="RegistroEntities">
-          <EntitySetMapping Name="test_Habilidades">
-            <EntityTypeMapping TypeName="RegistroModel.test_Habilidades">
-              <MappingFragment StoreEntitySet="test_Habilidades">
+          <EntitySetMapping Name="test_Habilidad">
+            <EntityTypeMapping TypeName="RegistroModel.test_Habilidad">
+              <MappingFragment StoreEntitySet="test_Habilidad">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
               </MappingFragment>
@@ -292,44 +338,28 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <AssociationSetMapping Name="test_Usuario_Habilidad" TypeName="RegistroModel.test_Usuario_Habilidad" StoreEntitySet="test_Usuario_Habilidad">
-            <EndProperty Name="test_Habilidades">
+            <EndProperty Name="test_Habilidad">
               <ScalarProperty Name="Id" ColumnName="IdHabilidad" />
             </EndProperty>
             <EndProperty Name="test_Usuario">
               <ScalarProperty Name="Cedula" ColumnName="UsuarioCedula" />
             </EndProperty>
           </AssociationSetMapping>
-          <FunctionImportMapping FunctionImportName="test_PhoneRead" FunctionName="RegistroModel.Store.test_PhoneRead">
+          <FunctionImportMapping FunctionImportName="test_Habilidad_Read" FunctionName="RegistroModel.Store.test_Habilidad_Read">
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="test_Habilidad_ReadById" FunctionName="RegistroModel.Store.test_Habilidad_ReadById" />
+          <FunctionImportMapping FunctionImportName="test_PhoneCreate" FunctionName="RegistroModel.Store.test_PhoneCreate" />
+          <FunctionImportMapping FunctionImportName="test_PhoneReadByUserId" FunctionName="RegistroModel.Store.test_PhoneReadByUserId">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="test_PhoneUpdate" FunctionName="RegistroModel.Store.test_PhoneUpdate" />
           <FunctionImportMapping FunctionImportName="test_UserCreate" FunctionName="RegistroModel.Store.test_UserCreate" />
           <FunctionImportMapping FunctionImportName="test_UserDelete" FunctionName="RegistroModel.Store.test_UserDelete" />
           <FunctionImportMapping FunctionImportName="test_UserRead" FunctionName="RegistroModel.Store.test_UserRead">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="RegistroModel.test_UserRead_Result">
-                <ScalarProperty Name="Cedula" ColumnName="Cedula" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="Usuario" ColumnName="Usuario" />
-                <ScalarProperty Name="Clave" ColumnName="Clave" />
-                <ScalarProperty Name="Correo" ColumnName="Correo" />
-                <ScalarProperty Name="TipoDeUsuario" ColumnName="TipoDeUsuario" />
-                <ScalarProperty Name="TipoDeIndentificacion" ColumnName="TipoDeIndentificacion" />
-              </ComplexTypeMapping>
-            </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="test_UserReadById" FunctionName="RegistroModel.Store.test_UserReadById">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="RegistroModel.test_UserReadById_Result">
-                <ScalarProperty Name="Cedula" ColumnName="Cedula" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="Usuario" ColumnName="Usuario" />
-                <ScalarProperty Name="Clave" ColumnName="Clave" />
-                <ScalarProperty Name="Correo" ColumnName="Correo" />
-                <ScalarProperty Name="TipoDeUsuario" ColumnName="TipoDeUsuario" />
-                <ScalarProperty Name="TipoDeIndentificacion" ColumnName="TipoDeIndentificacion" />
-              </ComplexTypeMapping>
-            </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="test_UserUpdate" FunctionName="RegistroModel.Store.test_UserUpdate" />
+          <FunctionImportMapping FunctionImportName="test_Usuario_Habilidad_Create" FunctionName="RegistroModel.Store.test_Usuario_Habilidad_Create" />
           <FunctionImportMapping FunctionImportName="test_Usuario_Habilidad_ReadByUserId" FunctionName="RegistroModel.Store.test_Usuario_Habilidad_ReadByUserId">
             <ResultMapping>
               <ComplexTypeMapping TypeName="RegistroModel.test_Usuario_Habilidad_ReadByUserId_Result">
@@ -338,8 +368,9 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="test_UserRead1" FunctionName="RegistroModel.Store.test_UserRead" />
-          <FunctionImportMapping FunctionImportName="test_UserReadById1" FunctionName="RegistroModel.Store.test_UserReadById" />
+          <FunctionImportMapping FunctionImportName="test_Usuario_Habilidad_Update" FunctionName="RegistroModel.Store.test_Usuario_Habilidad_Update" />
+          <FunctionImportMapping FunctionImportName="test_PhoneReadByTelefono" FunctionName="RegistroModel.Store.test_PhoneReadByTelefono">
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

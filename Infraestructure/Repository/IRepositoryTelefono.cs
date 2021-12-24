@@ -9,6 +9,9 @@ namespace Infraestructure.Repository
 {
     public interface IRepositoryTelefono
     {
-        IEnumerable<test_Telefono> GetTelefonoioByIdUsuario(string cedula);
+        IEnumerable<test_Telefono> GetTelefonoByIdUsuario(string cedula);
+        test_Telefono CreateTelefono(test_Telefono telefono);
+
+        test_Telefono UpdateTelefono(test_Telefono telefono);
     }
 }

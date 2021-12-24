@@ -13,7 +13,7 @@ namespace Infraestructure.Repository
 
         test_Usuario GetUsuarioById(string cedula);
 
-        test_Usuario CreateUsuario(test_Usuario usuario);
+        test_Usuario CreateUsuario(test_Usuario usuario,string [] telefonos, int[] idHabilidades);
 
         test_Usuario UpdateUsuario(test_Usuario usuario);
 

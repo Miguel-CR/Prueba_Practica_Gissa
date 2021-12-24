@@ -11,11 +11,11 @@ namespace ApplicationCore.Services
 {
    public class ServiceUsuario : IServiceUsuario
     {
-        public test_Usuario CreateUsuario(test_Usuario usuario)
+        public test_Usuario CreateUsuario(test_Usuario usuario, string[] telefonos, int[] idHabilidades)
         {
             IRepositoryUsuario repository = new RepositoryUsuario();
             usuario.Clave = Cryptography.EncrypthAES(usuario.Clave);
-            return repository.CreateUsuario(usuario);
+            return repository.CreateUsuario(usuario,telefonos,idHabilidades);
         }
 
         public void DeleteUsuarioById(string cedula)

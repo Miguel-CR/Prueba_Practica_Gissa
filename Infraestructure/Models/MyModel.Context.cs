@@ -27,29 +27,83 @@ namespace Infraestructure.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<test_Habilidades> test_Habilidades { get; set; }
+        public virtual DbSet<test_Habilidad> test_Habilidad { get; set; }
         public virtual DbSet<test_Telefono> test_Telefono { get; set; }
         public virtual DbSet<test_Usuario> test_Usuario { get; set; }
     
-        public virtual ObjectResult<test_Telefono> test_PhoneRead(string usuarioCedula)
+        public virtual ObjectResult<test_Habilidad> test_Habilidad_Read()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<test_Habilidad>("test_Habilidad_Read");
+        }
+    
+        public virtual ObjectResult<test_Habilidad> test_Habilidad_Read(MergeOption mergeOption)
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<test_Habilidad>("test_Habilidad_Read", mergeOption);
+        }
+    
+        public virtual ObjectResult<test_Habilidad> test_Habilidad_ReadById(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<test_Habilidad>("test_Habilidad_ReadById", idParameter);
+        }
+    
+        public virtual ObjectResult<test_Habilidad> test_Habilidad_ReadById(Nullable<int> id, MergeOption mergeOption)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<test_Habilidad>("test_Habilidad_ReadById", mergeOption, idParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> test_PhoneCreate(string usuarioCedula, string telefono)
         {
             var usuarioCedulaParameter = usuarioCedula != null ?
                 new ObjectParameter("UsuarioCedula", usuarioCedula) :
                 new ObjectParameter("UsuarioCedula", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<test_Telefono>("test_PhoneRead", usuarioCedulaParameter);
+            var telefonoParameter = telefono != null ?
+                new ObjectParameter("Telefono", telefono) :
+                new ObjectParameter("Telefono", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("test_PhoneCreate", usuarioCedulaParameter, telefonoParameter);
         }
     
-        public virtual ObjectResult<test_Telefono> test_PhoneRead(string usuarioCedula, MergeOption mergeOption)
+        public virtual ObjectResult<test_Telefono> test_PhoneReadByUserId(string usuarioCedula)
         {
             var usuarioCedulaParameter = usuarioCedula != null ?
                 new ObjectParameter("UsuarioCedula", usuarioCedula) :
                 new ObjectParameter("UsuarioCedula", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<test_Telefono>("test_PhoneRead", mergeOption, usuarioCedulaParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<test_Telefono>("test_PhoneReadByUserId", usuarioCedulaParameter);
         }
     
-        public virtual ObjectResult<Nullable<int>> test_UserCreate(string cedula, string nombre, string usuario, string clave, string correo, Nullable<int> tipoDeUsuario, Nullable<int> tipoDeIdentificacion, string telefono, Nullable<int> idHabilidad)
+        public virtual ObjectResult<test_Telefono> test_PhoneReadByUserId(string usuarioCedula, MergeOption mergeOption)
+        {
+            var usuarioCedulaParameter = usuarioCedula != null ?
+                new ObjectParameter("UsuarioCedula", usuarioCedula) :
+                new ObjectParameter("UsuarioCedula", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<test_Telefono>("test_PhoneReadByUserId", mergeOption, usuarioCedulaParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> test_PhoneUpdate(string usuarioCedula, string telefono)
+        {
+            var usuarioCedulaParameter = usuarioCedula != null ?
+                new ObjectParameter("UsuarioCedula", usuarioCedula) :
+                new ObjectParameter("UsuarioCedula", typeof(string));
+    
+            var telefonoParameter = telefono != null ?
+                new ObjectParameter("Telefono", telefono) :
+                new ObjectParameter("Telefono", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("test_PhoneUpdate", usuarioCedulaParameter, telefonoParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> test_UserCreate(string cedula, string nombre, string usuario, string clave, string correo, Nullable<int> tipoDeUsuario, Nullable<int> tipoDeIdentificacion)
         {
             var cedulaParameter = cedula != null ?
                 new ObjectParameter("Cedula", cedula) :
@@ -79,15 +133,7 @@ namespace Infraestructure.Models
                 new ObjectParameter("TipoDeIdentificacion", tipoDeIdentificacion) :
                 new ObjectParameter("TipoDeIdentificacion", typeof(int));
     
-            var telefonoParameter = telefono != null ?
-                new ObjectParameter("Telefono", telefono) :
-                new ObjectParameter("Telefono", typeof(string));
-    
-            var idHabilidadParameter = idHabilidad.HasValue ?
-                new ObjectParameter("IdHabilidad", idHabilidad) :
-                new ObjectParameter("IdHabilidad", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("test_UserCreate", cedulaParameter, nombreParameter, usuarioParameter, claveParameter, correoParameter, tipoDeUsuarioParameter, tipoDeIdentificacionParameter, telefonoParameter, idHabilidadParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("test_UserCreate", cedulaParameter, nombreParameter, usuarioParameter, claveParameter, correoParameter, tipoDeUsuarioParameter, tipoDeIdentificacionParameter);
         }
     
         public virtual ObjectResult<Nullable<int>> test_UserDelete(string cedula)
@@ -99,18 +145,32 @@ namespace Infraestructure.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("test_UserDelete", cedulaParameter);
         }
     
-        public virtual ObjectResult<test_UserRead_Result> test_UserRead()
+        public virtual ObjectResult<test_Usuario> test_UserRead()
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<test_UserRead_Result>("test_UserRead");
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<test_Usuario>("test_UserRead");
         }
     
-        public virtual ObjectResult<test_UserReadById_Result> test_UserReadById(string cedula)
+        public virtual ObjectResult<test_Usuario> test_UserRead(MergeOption mergeOption)
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<test_Usuario>("test_UserRead", mergeOption);
+        }
+    
+        public virtual ObjectResult<test_Usuario> test_UserReadById(string cedula)
         {
             var cedulaParameter = cedula != null ?
                 new ObjectParameter("Cedula", cedula) :
                 new ObjectParameter("Cedula", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<test_UserReadById_Result>("test_UserReadById", cedulaParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<test_Usuario>("test_UserReadById", cedulaParameter);
+        }
+    
+        public virtual ObjectResult<test_Usuario> test_UserReadById(string cedula, MergeOption mergeOption)
+        {
+            var cedulaParameter = cedula != null ?
+                new ObjectParameter("Cedula", cedula) :
+                new ObjectParameter("Cedula", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<test_Usuario>("test_UserReadById", mergeOption, cedulaParameter);
         }
     
         public virtual ObjectResult<Nullable<int>> test_UserUpdate(string cedula, string nombre, string usuario, string clave, string correo, Nullable<int> tipoDeUsuario, Nullable<int> tipoDeIdentificacion)
@@ -146,6 +206,19 @@ namespace Infraestructure.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("test_UserUpdate", cedulaParameter, nombreParameter, usuarioParameter, claveParameter, correoParameter, tipoDeUsuarioParameter, tipoDeIdentificacionParameter);
         }
     
+        public virtual ObjectResult<Nullable<int>> test_Usuario_Habilidad_Create(string usuarioCedula, Nullable<int> idHabilidad)
+        {
+            var usuarioCedulaParameter = usuarioCedula != null ?
+                new ObjectParameter("UsuarioCedula", usuarioCedula) :
+                new ObjectParameter("UsuarioCedula", typeof(string));
+    
+            var idHabilidadParameter = idHabilidad.HasValue ?
+                new ObjectParameter("IdHabilidad", idHabilidad) :
+                new ObjectParameter("IdHabilidad", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("test_Usuario_Habilidad_Create", usuarioCedulaParameter, idHabilidadParameter);
+        }
+    
         public virtual ObjectResult<test_Usuario_Habilidad_ReadByUserId_Result> test_Usuario_Habilidad_ReadByUserId(string usuarioCedula)
         {
             var usuarioCedulaParameter = usuarioCedula != null ?
@@ -155,32 +228,48 @@ namespace Infraestructure.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<test_Usuario_Habilidad_ReadByUserId_Result>("test_Usuario_Habilidad_ReadByUserId", usuarioCedulaParameter);
         }
     
-        public virtual ObjectResult<test_Usuario> test_UserRead1()
+        public virtual ObjectResult<test_Habilidad> test_Usuario_Habilidad_Update(string usuarioCedula, Nullable<int> idHabilidad)
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<test_Usuario>("test_UserRead1");
+            var usuarioCedulaParameter = usuarioCedula != null ?
+                new ObjectParameter("UsuarioCedula", usuarioCedula) :
+                new ObjectParameter("UsuarioCedula", typeof(string));
+    
+            var idHabilidadParameter = idHabilidad.HasValue ?
+                new ObjectParameter("IdHabilidad", idHabilidad) :
+                new ObjectParameter("IdHabilidad", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<test_Habilidad>("test_Usuario_Habilidad_Update", usuarioCedulaParameter, idHabilidadParameter);
         }
     
-        public virtual ObjectResult<test_Usuario> test_UserRead1(MergeOption mergeOption)
+        public virtual ObjectResult<test_Habilidad> test_Usuario_Habilidad_Update(string usuarioCedula, Nullable<int> idHabilidad, MergeOption mergeOption)
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<test_Usuario>("test_UserRead1", mergeOption);
+            var usuarioCedulaParameter = usuarioCedula != null ?
+                new ObjectParameter("UsuarioCedula", usuarioCedula) :
+                new ObjectParameter("UsuarioCedula", typeof(string));
+    
+            var idHabilidadParameter = idHabilidad.HasValue ?
+                new ObjectParameter("IdHabilidad", idHabilidad) :
+                new ObjectParameter("IdHabilidad", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<test_Habilidad>("test_Usuario_Habilidad_Update", mergeOption, usuarioCedulaParameter, idHabilidadParameter);
         }
     
-        public virtual ObjectResult<test_Usuario> test_UserReadById1(string cedula)
+        public virtual ObjectResult<test_Telefono> test_PhoneReadByTelefono(string telefono)
         {
-            var cedulaParameter = cedula != null ?
-                new ObjectParameter("Cedula", cedula) :
-                new ObjectParameter("Cedula", typeof(string));
+            var telefonoParameter = telefono != null ?
+                new ObjectParameter("Telefono", telefono) :
+                new ObjectParameter("Telefono", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<test_Usuario>("test_UserReadById1", cedulaParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<test_Telefono>("test_PhoneReadByTelefono", telefonoParameter);
         }
     
-        public virtual ObjectResult<test_Usuario> test_UserReadById1(string cedula, MergeOption mergeOption)
+        public virtual ObjectResult<test_Telefono> test_PhoneReadByTelefono(string telefono, MergeOption mergeOption)
         {
-            var cedulaParameter = cedula != null ?
-                new ObjectParameter("Cedula", cedula) :
-                new ObjectParameter("Cedula", typeof(string));
+            var telefonoParameter = telefono != null ?
+                new ObjectParameter("Telefono", telefono) :
+                new ObjectParameter("Telefono", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<test_Usuario>("test_UserReadById1", mergeOption, cedulaParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<test_Telefono>("test_PhoneReadByTelefono", mergeOption, telefonoParameter);
         }
     }
 }

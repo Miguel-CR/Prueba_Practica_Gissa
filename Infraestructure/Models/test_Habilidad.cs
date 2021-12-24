@@ -12,10 +12,10 @@ namespace Infraestructure.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class test_Habilidades
+    public partial class test_Habilidad
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public test_Habilidades()
+        public test_Habilidad()
         {
             this.test_Usuario = new HashSet<test_Usuario>();
         }

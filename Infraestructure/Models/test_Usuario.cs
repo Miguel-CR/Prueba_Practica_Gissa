@@ -18,7 +18,7 @@ namespace Infraestructure.Models
         public test_Usuario()
         {
             this.test_Telefono = new HashSet<test_Telefono>();
-            this.test_Habilidades = new HashSet<test_Habilidades>();
+            this.test_Habilidad = new HashSet<test_Habilidad>();
         }
     
         public string Cedula { get; set; }
@@ -32,6 +32,6 @@ namespace Infraestructure.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<test_Telefono> test_Telefono { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<test_Habilidades> test_Habilidades { get; set; }
+        public virtual ICollection<test_Habilidad> test_Habilidad { get; set; }
     }
 }
